@@ -1,3 +1,14 @@
+<?php
+
+$name = $_POST["name"];
+$mail = $_POST["mail"];
+$age = $_POST["age"];
+
+$str = "{$name},{$mail},{$age}\n";
+
+?>
+
+
 <head>
 <meta charset="utf-8">
 <title>File書き込み</title>
@@ -7,10 +18,10 @@
 This is a Pen. とdata.txt に書き込みます。
 </body>
 <?php
-$str = date("Y-m-d H:i:s")."文字列";
+
 $file = fopen("data/data.txt","a");	// ファイル読み込み
 flock($file, LOCK_EX);			// ファイルロック
-fwrite($file, $str."\n");
+fwrite($file, $str);
 flock($file, LOCK_UN);			// ファイルロック解除
 fclose($file);
 ?>
