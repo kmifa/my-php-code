@@ -1,5 +1,6 @@
 <?php
 	$file = file("data/data.csv");
+
 ?>
 
 <!DOCTYPE html>
