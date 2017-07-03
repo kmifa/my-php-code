@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+
+//0.外部ファイル読み込み
+include("functions.php");
+chkSSID();
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>

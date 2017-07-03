@@ -1,6 +1,9 @@
 <?php
+session_start();
+
 //0.外部ファイル読み込み
 include("functions.php");
+chkSSID();
 
 //1.  DB接続します
 $pdo = db_con();

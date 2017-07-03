@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>method_ajax0.html</title>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+$(document).ready(function(){
+  //この中に処理を記述 開始
+
+  //Ajax（非同期通信）//AJAX通信(ver1.5...)
+  $.ajax({
+     type: 'POST', //GET,POST
+     url:  'ajax.php', //通信先URL
+     data: {     //Dataプロパティはデータを送信（渡す）役目
+          id: 1,
+          mode: 'hoge',
+          type: 'entry',
+          sleep: 0        //Timeoutテスト用
+     },
+     dataType: 'html',    //text, html, xml, json, jsonp, script
+     timeout: 3000,
+     success: function( data, textStatus, jqXHR ) {
+          console.dir("success:"+data);             //戻り値
+          console.dir("success-textStatus:"+textStatus); //通信ステータス
+          $("#ajax_status").text("通信完了！");
+          $("body").append(data);
+     },
+     error: function( jqXHR, textStatus, errorThrown ) {
+          console.dir("Error-errorThrown:"+errorThrown); //エラー詳細
+          console.dir("Error-textStatus:"+textStatus);   //Errorステータス
+          console.dir("Error-jqXHR:"+jqXHR);             //戻り値Allオブジェクト
+     },
+     complete: function( jqXHR, textStatus ) {
+          if(textStatus=="timeout"){                     //TimeOut処理
+            alert("timeout");                            //TimeOut表示
+          }
+          console.dir("complete-textStatus:"+textStatus);//通信ステータス
+          console.dir("complete-jqXHR:"+jqXHR);          //戻り値Allオブジェクト
+      }
+  });
+
+
+   //この中に処理を記述 終了
+});
+</script>
+</head>
+<body>
+<h1 id="ajax_status">Ajax通信中...</h1>
+</body>
+</html>

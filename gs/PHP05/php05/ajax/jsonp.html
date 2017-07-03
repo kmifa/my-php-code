@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>method_jsonp.html</title>
+  <style>body{font-size:30px;}img{width:200px;}</style>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+$(document).ready(function(){
+  //この中に処理を記述 開始
+
+  //AJAX通信(ver1.8...)
+  var request = $.ajax({
+    type: 'POST',      //GET,POST
+      data:{             //Dataプロパティはデータを送信（渡す）役目
+          id: 1,
+          mode: 'hoge',
+          type: 'entry',
+          sleep: 0       //Timeoutテスト用
+    },
+    url: "jsonp.php",
+    async:true,         //非同期=true・同期=false
+    cache:false,        //初期値はtrueでキャッシュする状態
+    dataType: 'jsonp',  //text, html, xml, json, jsonp, script
+    jsonpCallback: 'jsonp_data',
+    timeout: 3000
+    });
+
+  request.done(function(data, textStatus) {
+    //パース処理
+    var h = ""; //img要素の文字列を入れる変数
+      for(var i=0; i<data.length; i++){
+         h +='<img src="'+data[i].src + '" alt="' + data[i].alt + '"><br>';
+      }
+      //通信完了
+    $("body").html(h);
+  });
+
+  request.fail(function(jqXHR, textStatus, errorThrown) {
+      console.dir("----fail.----");
+      console.dir("fail-jqXHR"+jqXHR);            //オブジェクト
+          console.dir("fail-textStatus:"+textStatus); //通信ステータス
+          console.dir("fail-errorThrown"+errorThrown); //エラーメッセージ
+  });
+
+  request.always(function(data, textStatus) {
+      console.dir("----always.----");
+      console.dir("always-data:"+data);              //データ
+      console.dir("always-textStatus:"+textStatus);  //通信ステータス
+  });
+
+   //この中に処理を記述 終了
+});
+</script>
+</head>
+<body>
+<h1 id="ajax_status">Ajax通信中...</h1>
+</body>
+</html>

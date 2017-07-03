@@ -5,7 +5,7 @@
 function db_con(){
   $dbname='gs_db';
   try {
-    $pdo = new PDO('mysql:dbname='.$dbname.';charset=utf8;host=localhost','root','');
+    $pdo = new PDO('mysql:dbname='.$dbname. ';charset=utf8;host=localhost','shinji','gstest');
   } catch (PDOException $e) {
     exit('DbConnectError:'.$e->getMessage());
   }
@@ -26,6 +26,21 @@ function queryError($stmt){
 */
 function h($str){
   return htmlspecialchars($str, ENT_QUOTES, "UTF-8");
+}
+
+/**
+* chkSSID
+* @Param:
+* @Return:
+*/
+function chkSSID(){
+  if(
+      !isset($_SESSION["chk_ssid"]) ||
+      $_SESSION["chk_ssid"] != session_id()
+  ){
+    echo "Login Error.";
+    exit;
+  }
 }
 
 
